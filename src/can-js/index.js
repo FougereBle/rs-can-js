@@ -1,5 +1,6 @@
 const config = require("./config");
 const canMiddleware = require("./middlewares/can");
+const getPermissions = require("./helpers/permissions");
 
 module.exports = {
   Config: config,
@@ -9,4 +10,5 @@ module.exports = {
     });
   },
   can: canMiddleware,
+  getPermissions: getPermissions,
 };

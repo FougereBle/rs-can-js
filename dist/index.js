@@ -22,6 +22,8 @@ var getPermissions = function getPermissions(role) {
   return permissions;
 };
 
+var permissions = getPermissions;
+
 var can = function (permission) {
   return function (req, res, next) {
     if (!req.user) {
@@ -31,9 +33,9 @@ var can = function (permission) {
     }
 
     var role = config.roles[req.user.role];
-    var permissions = getPermissions(role);
+    var permissions$1 = permissions(role);
 
-    if (!permissions.includes(permission)) {
+    if (!permissions$1.includes(permission)) {
       return res.status(401).json({
         error: "Unauthorized"
       });
@@ -52,7 +54,8 @@ var canJs = {
       _this.Config[key] = config[key];
     });
   },
-  can: can
+  can: can,
+  getPermissions: permissions
 };
 
 var src = canJs;
